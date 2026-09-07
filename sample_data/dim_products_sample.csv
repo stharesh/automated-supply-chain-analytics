@@ -1,0 +1,9 @@
+product_name,product_id,category,price_INR,price_USD
+Product A,900001,Dairy,120,4.0
+Product B,900002,Dairy,65,2.2
+Product C,900003,Beverages,90,3.0
+Product D,900004,Beverages,150,5.0
+Product E,900005,Snacks,80,2.7
+Product F,900006,Snacks,110,3.7
+Product G,900007,Staples,200,6.7
+Product H,900008,Staples,275,9.2

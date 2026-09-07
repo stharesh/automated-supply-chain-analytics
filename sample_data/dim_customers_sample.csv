@@ -1,0 +1,11 @@
+customer_id,customer_name,city,currency
+100001,Customer Alpha,"New York, US",USD
+100002,Customer Beta,"Mumbai, India",INR
+100003,Customer Gamma,"Chicago, US",USD
+100004,Customer Delta,"Bengaluru, India",INR
+100005,Customer Epsilon,"Texas, US",USD
+100006,Customer Zeta,"Delhi, India",INR
+100007,Customer Eta,"California, US",USD
+100008,Customer Theta,"Pune, India",INR
+100009,Customer Iota,"Florida, US",USD
+100010,Customer Kappa,"Hyderabad, India",INR
