@@ -116,6 +116,8 @@ Key metrics:
 
 Contains detailed order-line transaction data.
 
+**Grain:** one record per order-product line.
+
 Key fields include:
 
 - Order ID
@@ -133,6 +135,8 @@ Key fields include:
 #### `fact_aggregate`
 
 Contains order-level fulfillment performance.
+
+**Grain:** one record per order.
 
 Key fields include:
 
@@ -175,7 +179,9 @@ Natural-language prompts were used to answer questions such as:
 
 ## Example Analysis
 
-The Quadratic analysis generated KPIs including:
+The Quadratic analysis generated KPIs from the full analysis dataset, which is not the same as the reduced sample dataset committed to this repository. The sample files are provided to demonstrate the data structure and relationships; they do not reproduce the KPI totals below.
+
+The analysis generated KPIs including:
 
 - **Total Order Lines:** 1,000
 - **Total Orders:** 572
@@ -225,9 +231,6 @@ This creates a simple pipeline from **operational data to business insights**.
 
 ```text
 automated-supply-chain-analytics/
-|
-+-- automation/
-|   +-- workflow.png
 |
 +-- database/
 |   +-- schema.sql
