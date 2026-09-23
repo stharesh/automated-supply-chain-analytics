@@ -2,11 +2,13 @@
 
 ## Project Overview
 
-This project demonstrates an automated end-to-end supply chain analytics workflow.
+This project demonstrates an automated, AI-assisted supply-chain analytics workflow for regional monthly sales and fulfillment data.
 
-Daily regional sales and order-fulfillment files received through Gmail are automatically extracted as CSV files and inserted into PostgreSQL. The data is organized in Supabase using a fact-and-dimension data model.
+Monthly CSV files for multiple regions are received through Gmail. An n8n workflow extracts the files and loads the data into PostgreSQL hosted in Supabase, where it is organized in a fact-and-dimension model.
 
-The resulting dataset is connected to Quadratic AI, where natural-language prompts are used to calculate supply-chain KPIs and analyze customer fulfillment performance.
+Quadratic AI connects to the Supabase data for natural-language KPI exploration and customer-fulfillment analysis. During analysis, Quadratic AI can also retrieve live USD-to-INR exchange rates from the Open Exchange Rates API to support currency-normalized comparisons.
+
+> **What this project demonstrates:** automated data ingestion, cloud-hosted PostgreSQL data modeling, AI-assisted analytics, and live external-data enrichment. The reported KPIs and insights were generated in Quadratic AI—not with hand-written analytical SQL queries.
 
 ## Project Architecture
 
@@ -15,7 +17,7 @@ Gmail
   |
   | Daily regional sales/order files
   v
-Native Workflow Automation
+n8n Workflow Automation
   |
   | Extract CSV files
   v
@@ -35,7 +37,7 @@ Dimension Tables              Fact Tables
   +-- dim_targets_orders
   |
   v
-Quadratic AI
+Quadratic AI + Open Exchange Rates API
   |
   v
 KPIs & Business Analysis
@@ -46,9 +48,9 @@ Supply Chain Insights
 
 ## Data Pipeline
 
-### 1. Gmail Data Source
+### 1. Regional CSV data in Gmail
 
-Daily regional sales and order-fulfillment files are received through Gmail.
+Regional monthly sales and fulfillment CSV files are received through Gmail.
 
 The automation workflow is triggered when the relevant email arrives.
 
@@ -56,14 +58,13 @@ The automation workflow is triggered when the relevant email arrives.
 
 The workflow extracts the incoming CSV files from the email.
 
-Two workflow branches are used for the two data files:
+The workflow uses separate extraction and load paths for the incoming data files.
 
-- Order-line data
-- Order-level fulfillment/aggregate data
+This reduces the manual work of downloading attachments and preparing files for loading.
 
 ### 3. PostgreSQL Data Ingestion
 
-The extracted CSV data is passed to PostgreSQL using INSERT operations.
+The extracted CSV data is inserted into PostgreSQL by the n8n workflow.
 
 This automates the repetitive process of downloading files and manually loading them into the database.
 
@@ -163,9 +164,9 @@ The data was analyzed using Quadratic AI to calculate key supply-chain performan
 
 ## Quadratic AI Analysis
 
-Quadratic AI was used as the analytical layer after the database was populated.
+Quadratic AI is the analytical layer after the database is populated. It pulls the connected Supabase data and uses natural-language prompts to calculate KPIs and explore business questions.
 
-Natural-language prompts were used to answer questions such as:
+The project does not claim that the KPI calculations were authored as SQL queries. The analysis was generated in the Quadratic interface using prompts such as:
 
 - What is the overall order fulfillment performance?
 - What is the On-Time Delivery percentage?
@@ -176,6 +177,12 @@ Natural-language prompts were used to answer questions such as:
 - Which customers are below their OTIF target?
 - Which customers require attention based on fulfillment performance?
 - What are the major supply-chain performance gaps?
+
+### Live currency conversion
+
+For cross-region comparisons, a Quadratic prompt uses an app ID from [Open Exchange Rates](https://openexchangerates.org/) to retrieve the live USD-to-INR exchange rate at analysis time. This enables currency-normalized value analysis alongside the operational KPIs.
+
+The app ID is configured in Quadratic and is not stored in this repository. Because the rate is live, converted results can change over time; this project does not claim to maintain a historical exchange-rate snapshot.
 
 ## Example Analysis
 
@@ -191,7 +198,7 @@ The analysis generated KPIs including:
 - **In-Full Delivery:** 48.4%
 - **OTIF:** 25.4%
 
-Customer-level analysis was also performed using:
+Customer-level analysis was also performed in Quadratic AI using:
 
 - Order Value
 - OTIF %
@@ -202,7 +209,7 @@ These metrics help identify customers with fulfillment-performance gaps.
 
 ## Business Value
 
-The project automates a repetitive data-ingestion process in which daily regional files are received through email.
+The project automates a repetitive data-ingestion process in which monthly regional files are received through email.
 
 Instead of manually:
 
@@ -219,12 +226,12 @@ This creates a simple pipeline from **operational data to business insights**.
 ## Technologies Used
 
 - Gmail
-- Workflow Automation
+- n8n
 - CSV
 - PostgreSQL
 - Supabase
-- SQL
 - Quadratic AI
+- Open Exchange Rates API
 - GitHub
 
 ## Repository Structure
@@ -234,7 +241,6 @@ automated-supply-chain-analytics/
 |
 +-- database/
 |   +-- schema.sql
-|   +-- analysis_queries.sql
 |
 +-- sample_data/
 |   +-- README.md
@@ -288,12 +294,13 @@ Potential enhancements include:
 - Data pipeline automation
 - Email-based data ingestion
 - CSV processing
+- n8n workflow automation
 - PostgreSQL
 - Supabase
-- SQL
 - Fact and dimension modeling
 - Supply-chain analytics
-- KPI development
+- AI-assisted KPI analysis
+- Live API data enrichment
+- Currency-normalized analysis
 - Customer performance analysis
-- AI-assisted analytics
 - Business question formulation

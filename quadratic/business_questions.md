@@ -4,7 +4,7 @@
 
 The processed supply-chain data was connected to Quadratic AI for spreadsheet-based analysis and KPI generation.
 
-Natural-language prompts were used to answer business questions related to order fulfillment and customer performance.
+Natural-language prompts were used to answer business questions related to order fulfillment and customer performance. The KPI calculations in this project were generated through Quadratic AI; they are not presented as hand-written SQL analysis.
 
 ## Key Performance Indicators
 
@@ -46,3 +46,13 @@ The analysis included:
 13. What are the major fulfillment performance gaps?
 14. Which customers should be prioritized for improvement?
 15. What patterns can be identified from customer-level fulfillment performance?
+
+### Currency-Normalized Analysis
+
+16. Retrieve the current USD-to-INR exchange rate from the Open Exchange Rates API using the app ID configured in Quadratic.
+17. Convert USD-denominated values to INR for comparable cross-region analysis.
+18. Which customer or regional value metrics change most after currency normalization?
+
+## Live-rate note
+
+The exchange rate is retrieved at analysis time. It is not stored as a historical exchange-rate table in this project, so converted results can vary as live rates change. API credentials are configured in Quadratic and are not included in this repository.
