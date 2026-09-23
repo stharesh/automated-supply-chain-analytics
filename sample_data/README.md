@@ -1,6 +1,6 @@
 # Sample Data
 
-The files in this directory are reduced sample datasets included to demonstrate the structure and relationships of the supply-chain analytics model.
+The files in this directory are reduced sample datasets included to demonstrate the structure and relationships of the supply-chain analytics model used in Supabase.
 
 They are separate from the full analysis dataset used to generate the KPI results described in the main README.
 
@@ -19,6 +19,6 @@ They are separate from the full analysis dataset used to generate the KPI result
 - **Order-line fact:** one record per order-product line.
 - **Order aggregate fact:** one record per order.
 
-The sample data is intentionally smaller than the dataset used for the full analysis, so running calculations against these files will not reproduce the KPI figures shown in the main README.
+The sample data is intentionally smaller than the dataset used for the full analysis, so it will not reproduce the KPI figures shown in the main README. Those KPIs were generated in Quadratic AI from the connected full dataset; the sample files are for structural review only.
 
 The sample files are provided so that the database structure, relationships, and analytical fields can be inspected without exposing the full analysis dataset.
